@@ -1,0 +1,24 @@
+# --- Phase 1: ingestion (needed now) ---
+requests
+pandas
+python-dotenv
+tqdm
+pytest
+
+# --- Phase 2: parsing (add when you get there) ---
+pdfplumber
+pymupdf
+
+# --- Phase 3: embeddings + vector store ---
+sentence-transformers   # runs BGE-M3 locally, no API cost
+faiss-cpu
+
+# --- Phase 4: RAG orchestration + LLM ---
+langchain
+langchain-community
+google-generativeai     # Gemini free tier via Google AI Studio
+ollama                  # local fallback client
+
+# --- Phase 5/6: storage ---
+sqlalchemy
+psycopg2-binary         # only needed if you use the Postgres docker-compose service
