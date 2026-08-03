@@ -6,6 +6,8 @@ tqdm
 pytest
 
 # --- Phase 2: parsing (add when you get there) ---
+beautifulsoup4
+lxml
 pdfplumber
 pymupdf
 
