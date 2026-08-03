@@ -22,3 +22,5 @@ ollama                  # local fallback client
 # --- Phase 5/6: storage ---
 sqlalchemy
 psycopg2-binary         # only needed if you use the Postgres docker-compose service
+
+#source venv/Scripts/activate

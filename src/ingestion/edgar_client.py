@@ -29,10 +29,18 @@ from src.config import settings, require_sec_user_agent
 
 TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 SUBMISSIONS_URL = "https://data.sec.gov/submissions/CIK{cik10}.json"
+SUBMISSIONS_PAGE_URL = "https://data.sec.gov/submissions/{name}"
 COMPANY_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik10}.json"
 ARCHIVE_URL = "https://www.sec.gov/Archives/edgar/data/{cik_int}/{accession_nodash}/{filename}"
 
 MIN_INTERVAL_SECONDS = 0.15  # keeps us well under SEC's 10 req/sec ceiling
+
+# Exxon Mobil redomiciled from New Jersey to Texas on July 1, 2026, creating a
+# new legal entity "ExxonMobil Holdings Corp" with a new CIK that SEC's live
+# ticker map now points XOM to — but that new entity has no meaningful 10-K/10-Q
+# filing history yet. 0000034088 is the original Exxon Mobil Corporation CIK
+# with the actual historical filings and XBRL data we need.
+MANUAL_CIK_OVERRIDES = {"XOM": "0000034088"}
 
 
 class EdgarClient:
@@ -77,6 +85,9 @@ class EdgarClient:
     def get_cik_for_ticker(self, ticker: str) -> str:
         """Returns a zero-padded 10-digit CIK string for a given ticker, e.g. 'AAPL' -> '0000320193'."""
         ticker = ticker.upper().strip()
+        for override_ticker, cik in MANUAL_CIK_OVERRIDES.items():
+            if override_ticker.upper() == ticker:
+                return str(cik).zfill(10)
         data = self._load_ticker_map()
         for entry in data.values():
             if entry.get("ticker", "").upper() == ticker:
@@ -95,26 +106,41 @@ class EdgarClient:
         primaryDocument (the filename of the main filing document)."""
         resp = self._get(SUBMISSIONS_URL.format(cik10=cik10))
         payload = resp.json()
-        recent = payload["filings"]["recent"]
+        company_name = payload.get("name")
 
         filings = []
-        n = len(recent["form"])
         counts = {f: 0 for f in form_types}
-        for i in range(n):
-            form = recent["form"][i]
-            if form in form_types and counts[form] < limit_per_form:
-                filings.append(
-                    {
-                        "cik10": cik10,
-                        "company_name": payload.get("name"),
-                        "form": form,
-                        "accessionNumber": recent["accessionNumber"][i],
-                        "filingDate": recent["filingDate"][i],
-                        "reportDate": recent["reportDate"][i],
-                        "primaryDocument": recent["primaryDocument"][i],
-                    }
+
+        def limits_satisfied() -> bool:
+            return all(counts[f] >= limit_per_form for f in form_types)
+
+        def scan_batch(batch: dict) -> None:
+            for i, form in enumerate(batch["form"]):
+                if form in form_types and counts[form] < limit_per_form:
+                    filings.append(
+                        {
+                            "cik10": cik10,
+                            "company_name": company_name,
+                            "form": form,
+                            "accessionNumber": batch["accessionNumber"][i],
+                            "filingDate": batch["filingDate"][i],
+                            "reportDate": batch["reportDate"][i],
+                            "primaryDocument": batch["primaryDocument"][i],
+                        }
+                    )
+                    counts[form] += 1
+
+        scan_batch(payload["filings"]["recent"])
+
+        if not limits_satisfied():
+            for file_entry in payload["filings"].get("files", []):
+                if limits_satisfied():
+                    break
+                page_resp = self._get(
+                    SUBMISSIONS_PAGE_URL.format(name=file_entry["name"])
                 )
-                counts[form] += 1
+                scan_batch(page_resp.json())
+
         return filings
 
     # ---- downloading a filing document --------------------------------------
