@@ -1,0 +1,147 @@
+﻿Target: AAPL 10-K filed 2025-10-31
+File:   data\raw\AAPL\0000320193_10-K_2025-10-31_aapl-20250927.htm
+
+================================================================================
+BOUNDARY TIMELINE ù 0000320193_10-K_2025-10-31_aapl-20250927.htm
+Total detected boundaries: 38
+================================================================================
+
+[  1] generic   doc_idx=  1487 tag=<div> item_number='' section_title='UNITED STATES'
+       text: UNITED STATES
+[  2] generic   doc_idx=  1489 tag=<div> item_number='' section_title='SECURITIES AND EXCHANGE COMMISSION'
+       text: SECURITIES AND EXCHANGE COMMISSION
+[  3] generic   doc_idx=  1501 tag=<div> item_number='' section_title='FORM 10-K'
+       text: FORM 10-K
+[  4] generic   doc_idx=  1870 tag=<div> item_number='' section_title='DOCUMENTS INCORPORATED BY REFERENCE'
+       text: DOCUMENTS INCORPORATED BY REFERENCE
+[  5] generic   doc_idx=  1903 tag=<div> item_number='' section_title='TABLE OF CONTENTS'
+       text: TABLE OF CONTENTS
+[  6] generic   doc_idx=  2260 tag=<div> item_number='' section_title='PART I'
+       text: PART I
+[  7] item      doc_idx=  2263 tag=<div> item_number='1' section_title='Item 1. Business'
+       text: Item 1. Business
+[  8] item      doc_idx=  2491 tag=<div> item_number='1A' section_title='Item 1A. Risk Factors'
+       text: Item 1A. Risk Factors
+[  9] item      doc_idx=  2825 tag=<div> item_number='1B' section_title='Item 1B. Unresolved Staff Comments'
+       text: Item 1B. Unresolved Staff Comments
+[ 10] item      doc_idx=  2830 tag=<div> item_number='1C' section_title='Item 1C. Cybersecurity'
+       text: Item 1C. Cybersecurity
+[ 11] item      doc_idx=  2859 tag=<div> item_number='2' section_title='Item 2. Properties'
+       text: Item 2. Properties
+[ 12] item      doc_idx=  2873 tag=<div> item_number='3' section_title='Item 3. Legal Proceedings'
+       text: Item 3. Legal Proceedings
+[ 13] item      doc_idx=  2894 tag=<div> item_number='4' section_title='Item 4. Mine Safety Disclosures'
+       text: Item 4. Mine Safety Disclosures
+[ 14] generic   doc_idx=  2908 tag=<div> item_number='' section_title='PART II' *** INSIDE OPEN ITEM ***
+       text: PART II
+[ 15] item      doc_idx=  2911 tag=<div> item_number='5' section_title='Item 5. Market for RegistrantÆs Common Equity, Related Stockholder Mat'
+       text: Item 5. Market for RegistrantÆs Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities
+[ 16] item      doc_idx=  3307 tag=<div> item_number='6' section_title='Item 6. [Reserved]'
+       text: Item 6. [Reserved]
+[ 17] item      doc_idx=  3319 tag=<div> item_number='7' section_title='Item 7. ManagementÆs Discussion and Analysis of Financial Condition an'
+       text: Item 7. ManagementÆs Discussion and Analysis of Financial Condition and Results of Operations
+[ 18] item      doc_idx=  4496 tag=<div> item_number='7A' section_title='Item 7A. Quantitative and Qualitative Disclosures About Market Risk'
+       text: Item 7A. Quantitative and Qualitative Disclosures About Market Risk
+[ 19] item      doc_idx=  4618 tag=<div> item_number='8' section_title='Item 8. Financial Statements and Supplementary Data'
+       text: Item 8. Financial Statements and Supplementary Data
+[ 20] generic   doc_idx=  4723 tag=<div> item_number='' section_title='CONSOLIDATED STATEMENTS OF OPERATIONS' *** INSIDE OPEN ITEM ***
+       text: CONSOLIDATED STATEMENTS OF OPERATIONS
+[ 21] generic   doc_idx=  5204 tag=<div> item_number='' section_title='CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME' *** INSIDE OPEN ITEM ***
+       text: CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME
+[ 22] generic   doc_idx=  5490 tag=<div> item_number='' section_title='CONSOLIDATED BALANCE SHEETS' *** INSIDE OPEN ITEM ***
+       text: CONSOLIDATED BALANCE SHEETS
+[ 23] generic   doc_idx=  5953 tag=<div> item_number='' section_title='CONSOLIDATED STATEMENTS OF SHAREHOLDERSÆ EQUITY' *** INSIDE OPEN ITEM ***
+       text: CONSOLIDATED STATEMENTS OF SHAREHOLDERSÆ EQUITY
+[ 24] generic   doc_idx=  6378 tag=<div> item_number='' section_title='CONSOLIDATED STATEMENTS OF CASH FLOWS' *** INSIDE OPEN ITEM ***
+       text: CONSOLIDATED STATEMENTS OF CASH FLOWS
+[ 25] item      doc_idx= 13067 tag=<div> item_number='9' section_title='Item 9. Changes in and Disagreements with Accountants on Accounting an'
+       text: Item 9. Changes in and Disagreements with Accountants on Accounting and Financial Disclosure
+[ 26] item      doc_idx= 13072 tag=<div> item_number='9A' section_title='Item 9A. Controls and Procedures'
+       text: Item 9A. Controls and Procedures
+[ 27] item      doc_idx= 13111 tag=<div> item_number='9B' section_title='Item 9B. Other Information'
+       text: Item 9B. Other Information
+[ 28] item      doc_idx= 13125 tag=<div> item_number='9C' section_title='Item 9C. Disclosure Regarding Foreign Jurisdictions that Prevent Inspe'
+       text: Item 9C. Disclosure Regarding Foreign Jurisdictions that Prevent Inspections
+[ 29] generic   doc_idx= 13130 tag=<div> item_number='' section_title='PART III' *** INSIDE OPEN ITEM ***
+       text: PART III
+[ 30] item      doc_idx= 13133 tag=<div> item_number='10' section_title='Item 10. Directors, Executive Officers and Corporate Governance'
+       text: Item 10. Directors, Executive Officers and Corporate Governance
+[ 31] item      doc_idx= 13138 tag=<div> item_number='11' section_title='Item 11. Executive Compensation'
+       text: Item 11. Executive Compensation
+[ 32] item      doc_idx= 13143 tag=<div> item_number='12' section_title='Item 12. Security Ownership of Certain Beneficial Owners and Managemen'
+       text: Item 12. Security Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters
+[ 33] item      doc_idx= 13148 tag=<div> item_number='13' section_title='Item 13. Certain Relationships and Related Transactions, and Director '
+       text: Item 13. Certain Relationships and Related Transactions, and Director Independence
+[ 34] item      doc_idx= 13153 tag=<div> item_number='14' section_title='Item 14. Principal Accountant Fees and Services'
+       text: Item 14. Principal Accountant Fees and Services
+[ 35] generic   doc_idx= 13167 tag=<div> item_number='' section_title='PART IV' *** INSIDE OPEN ITEM ***
+       text: PART IV
+[ 36] item      doc_idx= 13170 tag=<div> item_number='15' section_title='Item 15. Exhibit and Financial Statement Schedules'
+       text: Item 15. Exhibit and Financial Statement Schedules
+[ 37] item      doc_idx= 14510 tag=<div> item_number='16' section_title='Item 16. Form 10-K Summary'
+       text: Item 16. Form 10-K Summary
+[ 38] post_item doc_idx= 14524 tag=<div> item_number='' section_title='SIGNATURES'
+       text: SIGNATURES
+
+--------------------------------------------------------------------------------
+Summary: 23 Item | 14 generic | 1 post-Item
+Generic headings INSIDE an open numbered Item: 8
+--------------------------------------------------------------------------------
+
+FLAGGED ù generic heading while numbered Item still open:
+
+  while Item '4' ('Item 4. Mine Safety Disclosures') was open @ doc_idx=2908:
+    generic -> 'PART II'
+  while Item '8' ('Item 8. Financial Statements and Supplementary Dat') was open @ doc_idx=4723:
+    generic -> 'CONSOLIDATED STATEMENTS OF OPERATIONS'
+  while Item '8' ('Item 8. Financial Statements and Supplementary Dat') was open @ doc_idx=5204:
+    generic -> 'CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME'
+  while Item '8' ('Item 8. Financial Statements and Supplementary Dat') was open @ doc_idx=5490:
+    generic -> 'CONSOLIDATED BALANCE SHEETS'
+  while Item '8' ('Item 8. Financial Statements and Supplementary Dat') was open @ doc_idx=5953:
+    generic -> 'CONSOLIDATED STATEMENTS OF SHAREHOLDERSÆ EQUITY'
+  while Item '8' ('Item 8. Financial Statements and Supplementary Dat') was open @ doc_idx=6378:
+    generic -> 'CONSOLIDATED STATEMENTS OF CASH FLOWS'
+  while Item '9C' ('Item 9C. Disclosure Regarding Foreign Jurisdiction') was open @ doc_idx=13130:
+    generic -> 'PART III'
+  while Item '14' ('Item 14. Principal Accountant Fees and Services') was open @ doc_idx=13167:
+    generic -> 'PART IV'
+
+================================================================================
+CHUNKS SUMMARY ù AAPL 10-K filed 2025-10-31
+Total chunks: 123 | numbered item_number: 58 | empty: 65
+Empty rate: 52.8%
+
+Top empty section_title values:
+    45 'CONSOLIDATED STATEMENTS OF CASH FLOWS'
+     4 'FORM 10-K'
+     3 'SIGNATURES'
+     2 'TABLE OF CONTENTS'
+     2 'CONSOLIDATED STATEMENTS OF OPERATIONS'
+     2 'CONSOLIDATED STATEMENTS OF SHAREHOLDERSÆ EQUITY'
+     2 'CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME'
+     2 'CONSOLIDATED BALANCE SHEETS'
+     1 'Preamble'
+     1 'SECURITIES AND EXCHANGE COMMISSION'
+     1 'DOCUMENTS INCORPORATED BY REFERENCE'
+
+Numbered item_number counts:
+     3 item '1'
+     1 item '2'
+     1 item '3'
+     1 item '4'
+     3 item '5'
+     1 item '6'
+    11 item '7'
+     2 item '8'
+     1 item '9'
+     1 item '10'
+     1 item '14'
+     8 item '15'
+     1 item '16'
+    17 item '1A'
+     1 item '1C'
+     2 item '7A'
+     1 item '9A'
+     1 item '9B'
+     1 item '9C'

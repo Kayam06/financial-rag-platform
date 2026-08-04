@@ -1,0 +1,365 @@
+﻿Target: MSFT 10-K filed 2026-07-29
+File:   data\raw\MSFT\0000789019_10-K_2026-07-29_msft-20260630.htm
+
+================================================================================
+BOUNDARY TIMELINE ù 0000789019_10-K_2026-07-29_msft-20260630.htm
+Total detected boundaries: 113
+================================================================================
+
+[  1] generic   doc_idx=  3554 tag=<p> item_number='' section_title='UNITED STATES'
+       text: UNITED STATES
+[  2] generic   doc_idx=  3556 tag=<p> item_number='' section_title='SECURITIES AND EXCHANGE COMMISSION'
+       text: SECURITIES AND EXCHANGE COMMISSION
+[  3] generic   doc_idx=  3564 tag=<p> item_number='' section_title='FORM 10-K'
+       text: FORM 10-K
+[  4] generic   doc_idx=  3663 tag=<p> item_number='' section_title='MICROSOFT CORPORATION'
+       text: MICROSOFT CORPORATION
+[  5] generic   doc_idx=  4057 tag=<p> item_number='' section_title='DOCUMENTS INCORPORATED BY REFERENCE'
+       text: DOCUMENTS INCORPORATED BY REFERENCE
+[  6] generic   doc_idx=  4075 tag=<p> item_number='' section_title='MICROSOFT CORPORATION'
+       text: MICROSOFT CORPORATION
+[  7] generic   doc_idx=  4077 tag=<p> item_number='' section_title='FORM 10-K'
+       text: FORM 10-K
+[  8] generic   doc_idx=  4082 tag=<p> item_number='' section_title='INDEX'
+       text: INDEX
+[  9] generic   doc_idx=  5344 tag=<p> item_number='' section_title='PART I'
+       text: PART I
+[ 10] item      doc_idx=  5347 tag=<p> item_number='1' section_title='Item 1. B USINESS'
+       text: ITEM 1. B USINESS
+[ 11] generic   doc_idx=  5350 tag=<p> item_number='' section_title='GENERAL' *** INSIDE OPEN ITEM ***
+       text: GENERAL
+[ 12] generic   doc_idx=  5466 tag=<p> item_number='' section_title='OPERATING SEGMENTS' *** INSIDE OPEN ITEM ***
+       text: OPERATING SEGMENTS
+[ 13] generic   doc_idx=  5663 tag=<p> item_number='' section_title='XBOX' *** INSIDE OPEN ITEM ***
+       text: XBOX
+[ 14] generic   doc_idx=  5702 tag=<p> item_number='' section_title='HUMAN CAPITAL RESOURCES' *** INSIDE OPEN ITEM ***
+       text: HUMAN CAPITAL RESOURCES
+[ 15] generic   doc_idx=  5720 tag=<p> item_number='' section_title='OPERATIONS' *** INSIDE OPEN ITEM ***
+       text: OPERATIONS
+[ 16] generic   doc_idx=  5732 tag=<p> item_number='' section_title='RESEARCH AND DEVELOPMENT' *** INSIDE OPEN ITEM ***
+       text: RESEARCH AND DEVELOPMENT
+[ 17] generic   doc_idx=  5764 tag=<p> item_number='' section_title='DISTRIBUTION, SALES, AND MARKETING' *** INSIDE OPEN ITEM ***
+       text: DISTRIBUTION, SALES, AND MARKETING
+[ 18] generic   doc_idx=  5773 tag=<p> item_number='' section_title='LICENSING OPTIONS' *** INSIDE OPEN ITEM ***
+       text: LICENSING OPTIONS
+[ 19] generic   doc_idx=  5780 tag=<p> item_number='' section_title='GOVERNMENT REGULATION' *** INSIDE OPEN ITEM ***
+       text: GOVERNMENT REGULATION
+[ 20] generic   doc_idx=  5799 tag=<p> item_number='' section_title='INFORMATION ABOUT OUR EXECUTIV E OFFICERS' *** INSIDE OPEN ITEM ***
+       text: INFORMATION ABOUT OUR EXECUTIV E OFFICERS
+[ 21] generic   doc_idx=  6010 tag=<p> item_number='' section_title='AVAILABLE INFORMATION' *** INSIDE OPEN ITEM ***
+       text: AVAILABLE INFORMATION
+[ 22] item      doc_idx=  6059 tag=<p> item_number='1A' section_title='Item 1A. RIS K FACTORS'
+       text: ITEM 1A. RIS K FACTORS
+[ 23] generic   doc_idx=  6064 tag=<p> item_number='' section_title='STRATEGIC AND COMPETITIVE RISKS' *** INSIDE OPEN ITEM ***
+       text: STRATEGIC AND COMPETITIVE RISKS
+[ 24] generic   doc_idx=  6192 tag=<p> item_number='' section_title='RISKS RELATING TO THE EVOLUTION OF OUR BUSINESS' *** INSIDE OPEN ITEM ***
+       text: RISKS RELATING TO THE EVOLUTION OF OUR BUSINESS
+[ 25] generic   doc_idx=  6205 tag=<p> item_number='' section_title='CYBERSECURITY, DATA PRIVACY, AND PLATFORM ABUSE RISKS' *** INSIDE OPEN ITEM ***
+       text: CYBERSECURITY, DATA PRIVACY, AND PLATFORM ABUSE RISKS
+[ 26] generic   doc_idx=  6328 tag=<p> item_number='' section_title='OPERATIONAL RISKS' *** INSIDE OPEN ITEM ***
+       text: OPERATIONAL RISKS
+[ 27] generic   doc_idx=  6376 tag=<p> item_number='' section_title='LEGAL, REGULATORY, AND LITIGATION RISKS' *** INSIDE OPEN ITEM ***
+       text: LEGAL, REGULATORY, AND LITIGATION RISKS
+[ 28] generic   doc_idx=  6474 tag=<p> item_number='' section_title='INTELLECTUAL PROPERTY RISKS' *** INSIDE OPEN ITEM ***
+       text: INTELLECTUAL PROPERTY RISKS
+[ 29] generic   doc_idx=  6484 tag=<p> item_number='' section_title='GENERAL RISKS' *** INSIDE OPEN ITEM ***
+       text: GENERAL RISKS
+[ 30] item      doc_idx=  6570 tag=<p> item_number='1B' section_title='Item 1B. , 1C'
+       text: Item 1B, 1C
+[ 31] item      doc_idx=  6575 tag=<p> item_number='1B' section_title='Item 1B. UNRESOLVE D STAFF COMMENTS'
+       text: ITEM 1B. UNRESOLVE D STAFF COMMENTS
+[ 32] item      doc_idx=  6584 tag=<p> item_number='1C' section_title='Item 1C. CY BERSECURITY'
+       text: ITEM 1C. CY BERSECURITY
+[ 33] generic   doc_idx=  6588 tag=<p> item_number='' section_title='RISK MANAGEMENT AND STRATEGY' *** INSIDE OPEN ITEM ***
+       text: RISK MANAGEMENT AND STRATEGY
+[ 34] generic   doc_idx=  6640 tag=<p> item_number='' section_title='GOVERNANCE' *** INSIDE OPEN ITEM ***
+       text: GOVERNANCE
+[ 35] generic   doc_idx=  6684 tag=<p> item_number='' section_title='PART I' *** INSIDE OPEN ITEM ***
+       text: PART I
+[ 36] item      doc_idx=  6686 tag=<p> item_number='2' section_title='Item 2. , 3, 4'
+       text: Item 2, 3, 4
+[ 37] item      doc_idx=  6691 tag=<p> item_number='2' section_title='Item 2. PR OPERTIES'
+       text: ITEM 2. PR OPERTIES
+[ 38] item      doc_idx=  7020 tag=<p> item_number='3' section_title='Item 3. LEGAL PROCEEDINGS'
+       text: ITEM 3. LEGAL PROCEEDINGS
+[ 39] item      doc_idx=  7027 tag=<p> item_number='4' section_title='Item 4. MINE SAFE TY DISCLOSURES'
+       text: ITEM 4. MINE SAFE TY DISCLOSURES
+[ 40] generic   doc_idx=  7045 tag=<p> item_number='' section_title='PAR T II' *** INSIDE OPEN ITEM ***
+       text: PAR T II
+[ 41] item      doc_idx=  7048 tag=<p> item_number='5' section_title='Item 5. MARKET FOR REGISTRANTÆS COM MON EQUITY, RELATED STOCKHOLDER MA'
+       text: ITEM 5. MARKET FOR REGISTRANTÆS COM MON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES
+[ 42] generic   doc_idx=  7051 tag=<p> item_number='' section_title='MARKET AND STOCKHOLDERS' *** INSIDE OPEN ITEM ***
+       text: MARKET AND STOCKHOLDERS
+[ 43] generic   doc_idx=  7056 tag=<p> item_number='' section_title='SHARE REPURCHASES AND DIVIDENDS' *** INSIDE OPEN ITEM ***
+       text: SHARE REPURCHASES AND DIVIDENDS
+[ 44] item      doc_idx=  8019 tag=<div> item_number='6' section_title='Item 6. [R ESERVED]'
+       text: ITEM 6. [R ESERVED]
+[ 45] item      doc_idx=  8020 tag=<p> item_number='6' section_title='Item 6. [R ESERVED]'
+       text: ITEM 6. [R ESERVED]
+[ 46] item      doc_idx=  8037 tag=<p> item_number='7' section_title='Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AN'
+       text: ITEM 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS
+[ 47] generic   doc_idx=  8042 tag=<p> item_number='' section_title='OVERVIEW' *** INSIDE OPEN ITEM ***
+       text: OVERVIEW
+[ 48] generic   doc_idx=  8419 tag=<p> item_number='' section_title='SUMMARY RESULTS OF OPERATIONS' *** INSIDE OPEN ITEM ***
+       text: SUMMARY RESULTS OF OPERATIONS
+[ 49] generic   doc_idx=  8975 tag=<p> item_number='' section_title='SEGMENT RESULTS OF OPERATIONS' *** INSIDE OPEN ITEM ***
+       text: SEGMENT RESULTS OF OPERATIONS
+[ 50] generic   doc_idx= 10735 tag=<p> item_number='' section_title='OPERATING EXPENSES' *** INSIDE OPEN ITEM ***
+       text: OPERATING EXPENSES
+[ 51] generic   doc_idx= 11447 tag=<p> item_number='' section_title='OTHER INCOME (EXPENSE), NET' *** INSIDE OPEN ITEM ***
+       text: OTHER INCOME (EXPENSE), NET
+[ 52] generic   doc_idx= 11844 tag=<p> item_number='' section_title='INCOME TAXES' *** INSIDE OPEN ITEM ***
+       text: INCOME TAXES
+[ 53] generic   doc_idx= 11874 tag=<p> item_number='' section_title='NON-GAAP FINANCIAL MEASURES' *** INSIDE OPEN ITEM ***
+       text: NON-GAAP FINANCIAL MEASURES
+[ 54] generic   doc_idx= 13139 tag=<p> item_number='' section_title='LIQUIDITY AND CAPITAL RESOURCES' *** INSIDE OPEN ITEM ***
+       text: LIQUIDITY AND CAPITAL RESOURCES
+[ 55] generic   doc_idx= 13939 tag=<p> item_number='' section_title='RECENT ACCOUNTING GUIDANCE' *** INSIDE OPEN ITEM ***
+       text: RECENT ACCOUNTING GUIDANCE
+[ 56] generic   doc_idx= 13943 tag=<p> item_number='' section_title='CRITICAL ACCOUNTING ESTIMATES' *** INSIDE OPEN ITEM ***
+       text: CRITICAL ACCOUNTING ESTIMATES
+[ 57] generic   doc_idx= 14045 tag=<p> item_number='' section_title='STATEMENT OF MANAGEMENTÆS RESPONSIBILITY FOR FINANCIAL STATEMENTS' *** INSIDE OPEN ITEM ***
+       text: STATEMENT OF MANAGEMENTÆS RESPONSIBILITY FOR FINANCIAL STATEMENTS
+[ 58] item      doc_idx= 14111 tag=<p> item_number='7A' section_title='Item 7A. QUANTITATIVE AND QUALITAT IVE DISCLOSURES ABOUT MARKET RISK'
+       text: ITEM 7A. QUANTITATIVE AND QUALITAT IVE DISCLOSURES ABOUT MARKET RISK
+[ 59] generic   doc_idx= 14114 tag=<p> item_number='' section_title='RISKS' *** INSIDE OPEN ITEM ***
+       text: RISKS
+[ 60] generic   doc_idx= 14143 tag=<p> item_number='' section_title='SENSITIVITY ANALYSIS' *** INSIDE OPEN ITEM ***
+       text: SENSITIVITY ANALYSIS
+[ 61] item      doc_idx= 14530 tag=<p> item_number='8' section_title='Item 8. FINANCIAL STATE MENTS AND SUPPLEMENTARY DATA'
+       text: ITEM 8. FINANCIAL STATE MENTS AND SUPPLEMENTARY DATA
+[ 62] generic   doc_idx= 14534 tag=<p> item_number='' section_title='INC OME STATEMENTS' *** INSIDE OPEN ITEM ***
+       text: INC OME STATEMENTS
+[ 63] generic   doc_idx= 16183 tag=<p> item_number='' section_title='COMPREHENSIVE IN COME STATEMENTS' *** INSIDE OPEN ITEM ***
+       text: COMPREHENSIVE IN COME STATEMENTS
+[ 64] generic   doc_idx= 16882 tag=<p> item_number='' section_title='BALANCE SHEETS' *** INSIDE OPEN ITEM ***
+       text: BALANCE SHEETS
+[ 65] generic   doc_idx= 18573 tag=<p> item_number='' section_title='CASH FLOWS S TATEMENTS' *** INSIDE OPEN ITEM ***
+       text: CASH FLOWS S TATEMENTS
+[ 66] generic   doc_idx= 21026 tag=<p> item_number='' section_title='STOCKHOLDERSÆ EQ UITY STATEMENTS' *** INSIDE OPEN ITEM ***
+       text: STOCKHOLDERSÆ EQ UITY STATEMENTS
+[ 67] generic   doc_idx= 22470 tag=<p> item_number='' section_title='NOTES TO FINANCI AL STATEMENTS' *** INSIDE OPEN ITEM ***
+       text: NOTES TO FINANCI AL STATEMENTS
+[ 68] generic   doc_idx= 22476 tag=<p> item_number='' section_title='NOTE 1 ù ACCOUNTING POLICIES' *** INSIDE OPEN ITEM ***
+       text: NOTE 1 ù ACCOUNTING POLICIES
+[ 69] generic   doc_idx= 22980 tag=<p> item_number='' section_title='NOTE 2 ù EARNINGS PER SHARE' *** INSIDE OPEN ITEM ***
+       text: NOTE 2 ù EARNINGS PER SHARE
+[ 70] generic   doc_idx= 23797 tag=<p> item_number='' section_title='NOTE 3 ù OTHER INCOME (EXPENSE), NET' *** INSIDE OPEN ITEM ***
+       text: NOTE 3 ù OTHER INCOME (EXPENSE), NET
+[ 71] generic   doc_idx= 25182 tag=<p> item_number='' section_title='NOTE 4 ù INVESTMENTS' *** INSIDE OPEN ITEM ***
+       text: NOTE 4 ù INVESTMENTS
+[ 72] generic   doc_idx= 35627 tag=<p> item_number='' section_title='NOTE 5 ù DERIVATIVES' *** INSIDE OPEN ITEM ***
+       text: NOTE 5 ù DERIVATIVES
+[ 73] generic   doc_idx= 39838 tag=<p> item_number='' section_title='NOTE 6 ù PROPERTY AND EQUIPMENT' *** INSIDE OPEN ITEM ***
+       text: NOTE 6 ù PROPERTY AND EQUIPMENT
+[ 74] generic   doc_idx= 40296 tag=<p> item_number='' section_title='NOTE 7 ù BUSINESS COMBINATIONS' *** INSIDE OPEN ITEM ***
+       text: NOTE 7 ù BUSINESS COMBINATIONS
+[ 75] generic   doc_idx= 41159 tag=<p> item_number='' section_title='NOTE 8 ù GOODWILL' *** INSIDE OPEN ITEM ***
+       text: NOTE 8 ù GOODWILL
+[ 76] generic   doc_idx= 42153 tag=<p> item_number='' section_title='NOTE 9 ù INTANGIBLE ASSETS' *** INSIDE OPEN ITEM ***
+       text: NOTE 9 ù INTANGIBLE ASSETS
+[ 77] generic   doc_idx= 43868 tag=<p> item_number='' section_title='NOTE 10 ù DEBT' *** INSIDE OPEN ITEM ***
+       text: NOTE 10 ù DEBT
+[ 78] generic   doc_idx= 46358 tag=<p> item_number='' section_title='NOTE 11 ù INCOME TAXES' *** INSIDE OPEN ITEM ***
+       text: NOTE 11 ù INCOME TAXES
+[ 79] generic   doc_idx= 51391 tag=<p> item_number='' section_title='NOTE 12 ù UNEARNED REVENUE' *** INSIDE OPEN ITEM ***
+       text: NOTE 12 ù UNEARNED REVENUE
+[ 80] generic   doc_idx= 51891 tag=<p> item_number='' section_title='NOTE 13 ù LEASES' *** INSIDE OPEN ITEM ***
+       text: NOTE 13 ù LEASES
+[ 81] generic   doc_idx= 54839 tag=<p> item_number='' section_title='NOTE 14 ù CONTINGENCIES' *** INSIDE OPEN ITEM ***
+       text: NOTE 14 ù CONTINGENCIES
+[ 82] generic   doc_idx= 54862 tag=<p> item_number='' section_title='NOTE 15 ù STOCKHOLDERSÆ EQUITY' *** INSIDE OPEN ITEM ***
+       text: NOTE 15 ù STOCKHOLDERSÆ EQUITY
+[ 83] generic   doc_idx= 57357 tag=<p> item_number='' section_title='NOTE 16 ù ACCUMULATED OTHER COMPREHENSIVE INCOME (LOSS)' *** INSIDE OPEN ITEM ***
+       text: NOTE 16 ù ACCUMULATED OTHER COMPREHENSIVE INCOME (LOSS)
+[ 84] generic   doc_idx= 59151 tag=<p> item_number='' section_title='NOTE 17 ù EMPLOYEE STOCK AND SAVINGS PLANS' *** INSIDE OPEN ITEM ***
+       text: NOTE 17 ù EMPLOYEE STOCK AND SAVINGS PLANS
+[ 85] generic   doc_idx= 60309 tag=<p> item_number='' section_title='NOTE 18 ù SEGMENT INFORMATION AND GEOGRAPHIC DATA' *** INSIDE OPEN ITEM ***
+       text: NOTE 18 ù SEGMENT INFORMATION AND GEOGRAPHIC DATA
+[ 86] generic   doc_idx= 63576 tag=<p> item_number='' section_title='REPORT OF INDEPENDENT REGIST ERED PUBLIC ACCOUNTING FIRM' *** INSIDE OPEN ITEM ***
+       text: REPORT OF INDEPENDENT REGIST ERED PUBLIC ACCOUNTING FIRM
+[ 87] generic   doc_idx= 63723 tag=<p> item_number='' section_title='/s/ D ELOITTE & T OUCHE LLP' *** INSIDE OPEN ITEM ***
+       text: /s/ D ELOITTE & T OUCHE LLP
+[ 88] item      doc_idx= 63751 tag=<p> item_number='9' section_title='Item 9. , 9A'
+       text: Item 9, 9A
+[ 89] item      doc_idx= 63756 tag=<p> item_number='9' section_title='Item 9. CHANGES IN AND DISAGREEMENTS WITH ACCOU NTANTS ON ACCOUNTING A'
+       text: ITEM 9. CHANGES IN AND DISAGREEMENTS WITH ACCOU NTANTS ON ACCOUNTING AND FINANCIAL DISCLOSURE
+[ 90] item      doc_idx= 63763 tag=<p> item_number='9A' section_title='Item 9A. CONTROLS AND PROCEDURES'
+       text: ITEM 9A. CONTROLS AND PROCEDURES
+[ 91] generic   doc_idx= 63770 tag=<p> item_number='' section_title='REPORT OF MANAGEMENT ON INTERNAL C ONTROL OVER FINANCIAL REPORTING' *** INSIDE OPEN ITEM ***
+       text: REPORT OF MANAGEMENT ON INTERNAL C ONTROL OVER FINANCIAL REPORTING
+[ 92] generic   doc_idx= 63787 tag=<p> item_number='' section_title='PART II' *** INSIDE OPEN ITEM ***
+       text: PART II
+[ 93] generic   doc_idx= 63794 tag=<p> item_number='' section_title='REPORT OF INDEPENDENT REGIST ERED PUBLIC ACCOUNTING FIRM' *** INSIDE OPEN ITEM ***
+       text: REPORT OF INDEPENDENT REGIST ERED PUBLIC ACCOUNTING FIRM
+[ 94] generic   doc_idx= 63825 tag=<p> item_number='' section_title='/s/ D ELOITTE & T OUCHE LLP' *** INSIDE OPEN ITEM ***
+       text: /s/ D ELOITTE & T OUCHE LLP
+[ 95] generic   doc_idx= 63842 tag=<p> item_number='' section_title='PART II, III' *** INSIDE OPEN ITEM ***
+       text: PART II, III
+[ 96] item      doc_idx= 63845 tag=<p> item_number='9B' section_title='Item 9B. , 9C, 10, 11'
+       text: Item 9B, 9C, 10, 11
+[ 97] item      doc_idx= 63850 tag=<p> item_number='9B' section_title='Item 9B. OTHER INFORMATION'
+       text: ITEM 9B. OTHER INFORMATION
+[ 98] item      doc_idx= 63919 tag=<p> item_number='9C' section_title='Item 9C. DISCLOSURE REGARDING FOREIGN J URISDICTIONS THAT PREVENT INSP'
+       text: ITEM 9C. DISCLOSURE REGARDING FOREIGN J URISDICTIONS THAT PREVENT INSPECTIONS
+[ 99] generic   doc_idx= 63924 tag=<p> item_number='' section_title='PART III' *** INSIDE OPEN ITEM ***
+       text: PART III
+[100] item      doc_idx= 63927 tag=<p> item_number='10' section_title='Item 10. DIRECTORS, EXECUTIVE OFF ICERS, AND CORPORATE GOVERNANCE'
+       text: ITEM 10. DIRECTORS, EXECUTIVE OFF ICERS, AND CORPORATE GOVERNANCE
+[101] item      doc_idx= 63941 tag=<p> item_number='11' section_title='Item 11. EXECUTI VE COMPENSATION'
+       text: ITEM 11. EXECUTI VE COMPENSATION
+[102] generic   doc_idx= 63952 tag=<p> item_number='' section_title='PART III' *** INSIDE OPEN ITEM ***
+       text: PART III
+[103] item      doc_idx= 63954 tag=<p> item_number='12' section_title='Item 12. , 13, 14'
+       text: Item 12, 13, 14
+[104] item      doc_idx= 63959 tag=<p> item_number='12' section_title='Item 12. SECURITY OWNERSHIP OF CERTAIN BENEFICIAL OWN ERS AND MANAGEME'
+       text: ITEM 12. SECURITY OWNERSHIP OF CERTAIN BENEFICIAL OWN ERS AND MANAGEMENT AND RELATED STOCKHOLDER MATTERS
+[105] item      doc_idx= 63965 tag=<p> item_number='13' section_title='Item 13. CERTAIN RELATIONSHIPS AND RELATED TRANSACTIONS, AND DIRECTOR '
+       text: ITEM 13. CERTAIN RELATIONSHIPS AND RELATED TRANSACTIONS, AND DIRECTOR INDEPENDENCE
+[106] item      doc_idx= 63971 tag=<p> item_number='14' section_title='Item 14. PRINCIPAL ACCOU NTANT FEES AND SERVICES'
+       text: ITEM 14. PRINCIPAL ACCOU NTANT FEES AND SERVICES
+[107] generic   doc_idx= 63993 tag=<p> item_number='' section_title='PART IV' *** INSIDE OPEN ITEM ***
+       text: PART IV
+[108] item      doc_idx= 63996 tag=<p> item_number='15' section_title='Item 15. EXHIBIT AND FINANC IAL STATEMENT SCHEDULES'
+       text: ITEM 15. EXHIBIT AND FINANC IAL STATEMENT SCHEDULES
+[109] post_item doc_idx= 64216 tag=<div> item_number='' section_title='Exhibit Listing'
+       text: Exhibit Listing
+[110] generic   doc_idx= 69636 tag=<p> item_number='' section_title='PART IV'
+       text: PART IV
+[111] item      doc_idx= 69642 tag=<div> item_number='16' section_title='Item 16. FORM 10-K SUMMARY None.'
+       text: ITEM 16. FORM 10-K SUMMARY None.
+[112] item      doc_idx= 69643 tag=<p> item_number='16' section_title='Item 16. FORM 10-K SUMMARY'
+       text: ITEM 16. FORM 10-K SUMMARY
+[113] post_item doc_idx= 69656 tag=<p> item_number='' section_title='SIGNAT URES'
+       text: SIGNAT URES
+
+--------------------------------------------------------------------------------
+Summary: 30 Item | 81 generic | 2 post-Item
+Generic headings INSIDE an open numbered Item: 71
+--------------------------------------------------------------------------------
+
+FLAGGED ù generic heading while numbered Item still open:
+
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5350:
+    generic -> 'GENERAL'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5466:
+    generic -> 'OPERATING SEGMENTS'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5663:
+    generic -> 'XBOX'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5702:
+    generic -> 'HUMAN CAPITAL RESOURCES'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5720:
+    generic -> 'OPERATIONS'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5732:
+    generic -> 'RESEARCH AND DEVELOPMENT'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5764:
+    generic -> 'DISTRIBUTION, SALES, AND MARKETING'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5773:
+    generic -> 'LICENSING OPTIONS'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5780:
+    generic -> 'GOVERNMENT REGULATION'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=5799:
+    generic -> 'INFORMATION ABOUT OUR EXECUTIV E OFFICERS'
+  while Item '1' ('Item 1. B USINESS') was open @ doc_idx=6010:
+    generic -> 'AVAILABLE INFORMATION'
+  while Item '1A' ('Item 1A. RIS K FACTORS') was open @ doc_idx=6064:
+    generic -> 'STRATEGIC AND COMPETITIVE RISKS'
+  while Item '1A' ('Item 1A. RIS K FACTORS') was open @ doc_idx=6192:
+    generic -> 'RISKS RELATING TO THE EVOLUTION OF OUR BUSINESS'
+  while Item '1A' ('Item 1A. RIS K FACTORS') was open @ doc_idx=6205:
+    generic -> 'CYBERSECURITY, DATA PRIVACY, AND PLATFORM ABUSE RISKS'
+  while Item '1A' ('Item 1A. RIS K FACTORS') was open @ doc_idx=6328:
+    generic -> 'OPERATIONAL RISKS'
+  while Item '1A' ('Item 1A. RIS K FACTORS') was open @ doc_idx=6376:
+    generic -> 'LEGAL, REGULATORY, AND LITIGATION RISKS'
+  while Item '1A' ('Item 1A. RIS K FACTORS') was open @ doc_idx=6474:
+    generic -> 'INTELLECTUAL PROPERTY RISKS'
+  while Item '1A' ('Item 1A. RIS K FACTORS') was open @ doc_idx=6484:
+    generic -> 'GENERAL RISKS'
+  while Item '1C' ('Item 1C. CY BERSECURITY') was open @ doc_idx=6588:
+    generic -> 'RISK MANAGEMENT AND STRATEGY'
+  while Item '1C' ('Item 1C. CY BERSECURITY') was open @ doc_idx=6640:
+    generic -> 'GOVERNANCE'
+  while Item '1C' ('Item 1C. CY BERSECURITY') was open @ doc_idx=6684:
+    generic -> 'PART I'
+  while Item '4' ('Item 4. MINE SAFE TY DISCLOSURES') was open @ doc_idx=7045:
+    generic -> 'PAR T II'
+  while Item '5' ('Item 5. MARKET FOR REGISTRANTÆS COM MON EQUITY, RE') was open @ doc_idx=7051:
+    generic -> 'MARKET AND STOCKHOLDERS'
+  while Item '5' ('Item 5. MARKET FOR REGISTRANTÆS COM MON EQUITY, RE') was open @ doc_idx=7056:
+    generic -> 'SHARE REPURCHASES AND DIVIDENDS'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=8042:
+    generic -> 'OVERVIEW'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=8419:
+    generic -> 'SUMMARY RESULTS OF OPERATIONS'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=8975:
+    generic -> 'SEGMENT RESULTS OF OPERATIONS'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=10735:
+    generic -> 'OPERATING EXPENSES'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=11447:
+    generic -> 'OTHER INCOME (EXPENSE), NET'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=11844:
+    generic -> 'INCOME TAXES'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=11874:
+    generic -> 'NON-GAAP FINANCIAL MEASURES'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=13139:
+    generic -> 'LIQUIDITY AND CAPITAL RESOURCES'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=13939:
+    generic -> 'RECENT ACCOUNTING GUIDANCE'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=13943:
+    generic -> 'CRITICAL ACCOUNTING ESTIMATES'
+  while Item '7' ('Item 7. MANAGEMENTÆS DISCUSSION AND ANALYSIS OF FI') was open @ doc_idx=14045:
+    generic -> 'STATEMENT OF MANAGEMENTÆS RESPONSIBILITY FOR FINANCIAL STATEMENTS'
+  while Item '7A' ('Item 7A. QUANTITATIVE AND QUALITAT IVE DISCLOSURES') was open @ doc_idx=14114:
+    generic -> 'RISKS'
+  while Item '7A' ('Item 7A. QUANTITATIVE AND QUALITAT IVE DISCLOSURES') was open @ doc_idx=14143:
+    generic -> 'SENSITIVITY ANALYSIS'
+  while Item '8' ('Item 8. FINANCIAL STATE MENTS AND SUPPLEMENTARY DA') was open @ doc_idx=14534:
+    generic -> 'INC OME STATEMENTS'
+  while Item '8' ('Item 8. FINANCIAL STATE MENTS AND SUPPLEMENTARY DA') was open @ doc_idx=16183:
+    generic -> 'COMPREHENSIVE IN COME STATEMENTS'
+  while Item '8' ('Item 8. FINANCIAL STATE MENTS AND SUPPLEMENTARY DA') was open @ doc_idx=16882:
+    generic -> 'BALANCE SHEETS'
+  ... and 31 more
+
+================================================================================
+CHUNKS SUMMARY ù MSFT 10-K filed 2026-07-29
+Total chunks: 234 | numbered item_number: 28 | empty: 206
+Empty rate: 88.0%
+
+Top empty section_title values:
+    23 'NOTE 1 ù ACCOUNTING POLICIES'
+    13 'NOTE 11 ù INCOME TAXES'
+     8 'NOTE 18 ù SEGMENT INFORMATION AND GEOGRAPHIC DATA'
+     8 'NOTE 5 ù DERIVATIVES'
+     7 'NOTE 4 ù INVESTMENTS'
+     6 'CYBERSECURITY, DATA PRIVACY, AND PLATFORM ABUSE RISKS'
+     6 'NOTE 13 ù LEASES'
+     6 'NOTE 17 ù EMPLOYEE STOCK AND SAVINGS PLANS'
+     5 'OVERVIEW'
+     5 'NOTE 15 ù STOCKHOLDERSÆ EQUITY'
+     4 'MICROSOFT CORPORATION'
+     4 'OPERATING EXPENSES'
+     4 'NOTE 3 ù OTHER INCOME (EXPENSE), NET'
+     4 'LIQUIDITY AND CAPITAL RESOURCES'
+     4 'NOTE 7 ù BUSINESS COMBINATIONS'
+
+Numbered item_number counts:
+     2 item '2'
+     1 item '3'
+     1 item '4'
+     1 item '6'
+     1 item '7'
+     1 item '9'
+     1 item '10'
+     1 item '11'
+     1 item '12'
+     1 item '13'
+     1 item '14'
+    10 item '15'
+     1 item '16'
+     1 item '1A'
+     1 item '1B'
+     1 item '9A'
+     1 item '9B'
+     1 item '9C'

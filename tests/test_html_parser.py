@@ -47,6 +47,32 @@ ITEM8_VARIANTS_HTML = """
 </body></html>
 """
 
+ITEM16_BOUNDARY_HTML = """
+<html><body>
+  <div style="font-weight:700">Item 16. Form 10-K Summary</div>
+  <p>None.</p>
+  <p>SIGNAT URES</p>
+  <p>/s/ Jane Doe</p>
+  <p>Chief Executive Officer</p>
+  <div style="font-weight:700">EXHIBIT INDEX</div>
+  <p>Exhibit 31.1 — Certification of CEO</p>
+</body></html>
+"""
+
+GENERIC_HEADING_HTML = """
+<html><body>
+  <p>Cover page boilerplate before any heading.</p>
+  <div style="font-weight:700">INTRODUCTION</div>
+  <p>MD&amp;A opening paragraph.</p>
+  <div style="font-weight:700">CONSOLIDATED RESULTS OF OPERATIONS</div>
+  <p>Revenue increased 5% year over year.</p>
+  <div style="font-weight:700">Item 16. Form 10-K Summary</div>
+  <p>None.</p>
+  <p>SIGNAT URES</p>
+  <p>/s/ Jane Doe</p>
+</body></html>
+"""
+
 
 def test_item_heading_regex_matches_common_formats():
     assert ITEM_HEADING_RE.match("Item 1. Business")
@@ -123,3 +149,43 @@ def test_serialize_table_row_format_with_headers():
     )
     content = serialize_table(df)
     assert content == "Revenue: 100 | 95\nNet income: 20 | 18"
+
+
+def test_item16_content_stops_at_signatures_boundary(tmp_path):
+    filing = tmp_path / "item16.htm"
+    filing.write_text(ITEM16_BOUNDARY_HTML, encoding="utf-8")
+
+    sections, _ = FilingParser(filing).parse()
+
+    item16 = next(s for s in sections if s.item_number == "16")
+    assert item16.text.strip() == "None."
+    assert "/s/ Jane Doe" not in item16.text
+
+    signatures = next(s for s in sections if s.item_number == "" and "SIGNAT" in s.section_title.upper())
+    assert "/s/ Jane Doe" in signatures.text
+
+
+def test_preamble_not_renamed_to_signature_when_signature_appears_later(tmp_path):
+    filing = tmp_path / "generic.htm"
+    filing.write_text(GENERIC_HEADING_HTML, encoding="utf-8")
+
+    sections, _ = FilingParser(filing).parse()
+    by_title = {s.section_title: s for s in sections}
+
+    assert "Cover page boilerplate" in by_title["Preamble"].text
+    assert "MD&A opening" in by_title["INTRODUCTION"].text
+    assert "Revenue increased" in by_title["CONSOLIDATED RESULTS OF OPERATIONS"].text
+    assert "MD&A opening" not in by_title["SIGNAT URES"].text
+    assert by_title["Item 16. Form 10-K Summary"].text.strip() == "None."
+    assert "/s/ Jane Doe" in by_title["SIGNAT URES"].text
+
+
+def test_serialize_table_strips_integer_float_suffix_duplicates():
+    df = pd.DataFrame(
+        [["Years ended December 31,", "2024", 2024.0, "2023", 2023.0]],
+        columns=["Label", "c1", "c2", "c3", "c4"],
+    )
+    content = serialize_table(df)
+    assert "2024.0" not in content
+    assert "2023.0" not in content
+    assert content == "Years ended December 31,: 2024 | 2023"

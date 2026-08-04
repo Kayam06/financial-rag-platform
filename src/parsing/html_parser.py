@@ -29,15 +29,36 @@ ITEM_HEADING_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Matched against whitespace-stripped, uppercased text with all non-letters
+# removed so "SIGNAT URES" (split across styled spans) still matches SIGNATURES.
+POST_ITEM_BOUNDARY_COMPACT_RE = re.compile(
+    r"^(?:"
+    r"SIGNATURES?"
+    r"|EXHIBIT(?:INDEX|LISTING)"
+    r"|EXHIBITS"
+    r"|INDEXTOEXHIBITS"
+    r")$",
+    re.IGNORECASE,
+)
+
+# pandas.read_html sometimes types numeric year headers as floats (2024.0).
+INTEGER_FLOAT_SUFFIX_RE = re.compile(r"^-?\d+\.0$")
+
 BLOCK_TAGS = frozenset({"div", "p", "h1", "h2", "h3", "h4", "h5", "h6", "li"})
 HEADING_TAGS = frozenset({"div", "p", "h1", "h2", "h3", "h4", "h5", "h6", "span"})
 
 # Headings are short; longer matches are usually in-sentence cross-references
 # ("see Part II, Item 7 …") rather than section headers.
 MAX_HEADING_CHARS = 200
+MIN_GENERIC_HEADING_CHARS = 4
+MAX_GENERIC_HEADING_CHARS = 120
+MAX_GENERIC_HEADING_WORDS = 12
 
 PREAMBLE_ITEM_NUMBER = ""
 PREAMBLE_SECTION_TITLE = "Preamble"
+
+# Internal sentinel: narrative buffers keyed by item_number merge on this title slot.
+_ITEM_BUFFER_TITLE = "__item__"
 
 
 @dataclass(frozen=True)
@@ -75,6 +96,12 @@ def serialize_table(df: pd.DataFrame) -> str:
     spanning three columns becomes "California,California,California". We
     collapse consecutive identical values in each row before formatting.
 
+    Integer float suffix: read_html may infer numeric dtypes for year-like
+    header cells, rendering "2024" as "2024.0". We strip the ".0" suffix
+    before deduplication so "2024" and "2024.0" collapse to one value.
+
+    # TODO: multi-level header tables not yet handled, see project doc Issue 4 follow-up
+
     Rowspan merges, nested tables, and filers that encode layout tables as
     data tables may still need additional heuristics as the corpus grows.
     """
@@ -111,14 +138,24 @@ def _is_placeholder_column(name: object) -> bool:
 
 
 def _collapse_row_duplicates(values: list[object]) -> list[str]:
-    """Remove consecutive duplicate cells produced by colspan expansion."""
-    normalized = ["" if pd.isna(v) else str(v).strip() for v in values]
+    """Normalize cells, then remove consecutive duplicates from colspan expansion."""
+    normalized = [_normalize_cell_value(v) for v in values]
     collapsed: list[str] = []
     for cell in normalized:
         if collapsed and cell == collapsed[-1]:
             continue
         collapsed.append(cell)
     return collapsed
+
+
+def _normalize_cell_value(value: object) -> str:
+    """Strip whitespace and render integer-valued floats as bare integers."""
+    if pd.isna(value):
+        return ""
+    text = str(value).strip()
+    if INTEGER_FLOAT_SUFFIX_RE.match(text):
+        return text[:-2]
+    return text
 
 
 def _first_nonempty_label(values: list[str]) -> tuple[str, list[str]]:
@@ -185,6 +222,83 @@ class FilingParser:
         return SectionInfo(item_number=item_number, section_title=section_title)
 
     @classmethod
+    def _compact_boundary_text(cls, text: str) -> str:
+        """Strip non-letters so split headings like 'SIGNAT URES' still match."""
+        return re.sub(r"[^A-Za-z]", "", cls._normalize_text(text)).upper()
+
+    @classmethod
+    def _parse_post_item_boundary(cls, text: str) -> Optional[SectionInfo]:
+        """Return section info for post-Item markers (signatures, exhibit index).
+
+        These headings reset item_number to empty so trailing document content
+        is not absorbed into the last numbered Item (typically Item 16).
+        Compact matching handles filers that split words across styled spans.
+        """
+        normalized = cls._normalize_text(text)
+        if len(normalized) > MAX_HEADING_CHARS:
+            return None
+        compact = cls._compact_boundary_text(normalized)
+        if not POST_ITEM_BOUNDARY_COMPACT_RE.match(compact):
+            return None
+        return SectionInfo(item_number=PREAMBLE_ITEM_NUMBER, section_title=normalized)
+
+    @classmethod
+    def _is_styled_heading(cls, tag: Tag) -> bool:
+        """True when tag markup suggests a section header rather than body text."""
+        if tag.name in {"h1", "h2", "h3", "h4", "h5", "h6"}:
+            return True
+        style = tag.get("style") or ""
+        parent = tag.find_parent(["div", "p", "span"])
+        if parent is not None:
+            style += parent.get("style") or ""
+        if "font-weight:700" in style or "font-weight:bold" in style.lower():
+            return True
+        letters = [c for c in tag.get_text(strip=True) if c.isalpha()]
+        if letters and sum(c.isupper() for c in letters) / len(letters) >= 0.85:
+            return True
+        return False
+
+    @classmethod
+    def _heading_text_for_detection(cls, text: str) -> str:
+        """Strip leading page numbers filers often prepend to section titles."""
+        normalized = cls._normalize_text(text)
+        return re.sub(r"^\d+\s+", "", normalized)
+
+    @classmethod
+    def _parse_generic_heading(cls, text: str) -> Optional[SectionInfo]:
+        """Return section info for non-Item styled headings (e.g. JPM MD&A blocks).
+
+        Some filers label MD&A subsections with business titles ("INTRODUCTION",
+        "CAPITAL RISK MANAGEMENT") instead of "Item N." headings. We keep the
+        filer's title as section_title and leave item_number empty — no attempt
+        to map these to canonical Item numbers.
+        """
+        normalized = cls._heading_text_for_detection(text)
+        if len(normalized) < MIN_GENERIC_HEADING_CHARS:
+            return None
+        if len(normalized) > MAX_GENERIC_HEADING_CHARS:
+            return None
+        if len(normalized.split()) > MAX_GENERIC_HEADING_WORDS:
+            return None
+        if cls._parse_item_heading(normalized) or cls._parse_post_item_boundary(normalized):
+            return None
+        if normalized.startswith("(") or normalized.lower().startswith("refer to"):
+            return None
+        return SectionInfo(item_number=PREAMBLE_ITEM_NUMBER, section_title=normalized)
+
+    @classmethod
+    def _looks_like_generic_heading(cls, tag: Tag, normalized_text: str) -> bool:
+        if cls._parse_generic_heading(normalized_text) is None:
+            return False
+        if tag.find_parent("table"):
+            return False
+        if tag.name not in HEADING_TAGS:
+            return False
+        if tag.name == "span" and tag.find_parent(["div", "p"], recursive=False):
+            return False
+        return cls._is_styled_heading(tag)
+
+    @classmethod
     def _is_toc_anchor(cls, tag: Tag, normalized_text: str) -> bool:
         """Bare 'Item N.' links in the TOC are not section boundaries."""
         if tag.name != "a":
@@ -214,27 +328,60 @@ class FilingParser:
                 return False
         return True
 
+    @classmethod
+    def _looks_like_post_item_boundary(cls, tag: Tag, normalized_text: str) -> bool:
+        if cls._parse_post_item_boundary(normalized_text) is None:
+            return False
+        if tag.find_parent("table"):
+            return False
+        if tag.name not in HEADING_TAGS:
+            return False
+        if tag.name == "span" and tag.find_parent(["div", "p"], recursive=False):
+            return False
+        return True
+
     def _find_section_starts(
         self, soup: BeautifulSoup, tag_index: dict[Tag, int]
     ) -> list[tuple[int, SectionInfo]]:
-        """Return (document position, section info) for each detected Item heading."""
-        starts: list[tuple[int, SectionInfo]] = []
+        """Return (document position, section info) for Item and post-Item headings."""
+        item_starts: list[tuple[int, SectionInfo]] = []
+        post_item_candidates: list[tuple[int, SectionInfo]] = []
         seen_at_index: dict[int, SectionInfo] = {}
 
         for tag in soup.find_all(HEADING_TAGS):
             if tag.find_parent("table"):
                 continue
             normalized = self._normalize_text(tag.get_text(" ", strip=True))
-            if not self._looks_like_heading(tag, normalized):
-                continue
-            section_info = self._parse_item_heading(normalized)
+
+            section_info: Optional[SectionInfo] = None
+            is_post_item = False
+            if self._looks_like_heading(tag, normalized):
+                section_info = self._parse_item_heading(normalized)
+            elif self._looks_like_post_item_boundary(tag, normalized):
+                section_info = self._parse_post_item_boundary(normalized)
+                is_post_item = True
+            elif self._looks_like_generic_heading(tag, normalized):
+                section_info = self._parse_generic_heading(normalized)
+
             if not section_info:
                 continue
             idx = tag_index[tag]
-            # Keep the first heading at each index; skip duplicate span/div pairs.
-            if idx not in seen_at_index:
-                seen_at_index[idx] = section_info
-                starts.append((idx, section_info))
+            if idx in seen_at_index:
+                continue
+            seen_at_index[idx] = section_info
+            if is_post_item:
+                post_item_candidates.append((idx, section_info))
+            else:
+                item_starts.append((idx, section_info))
+
+        starts = list(item_starts)
+        if item_starts and post_item_candidates:
+            last_item_idx = max(idx for idx, _ in item_starts)
+            starts.extend(
+                (idx, info)
+                for idx, info in post_item_candidates
+                if idx > last_item_idx
+            )
 
         starts.sort(key=lambda pair: pair[0])
         return starts
@@ -268,25 +415,36 @@ class FilingParser:
             return False
         return tag.find(BLOCK_TAGS, recursive=False) is None
 
+    @staticmethod
+    def _buffer_key(info: SectionInfo) -> tuple[str, str]:
+        """Bucket key for narrative text; item sections merge, unnumbered do not."""
+        if info.item_number:
+            return (info.item_number, _ITEM_BUFFER_TITLE)
+        return (PREAMBLE_ITEM_NUMBER, info.section_title)
+
     def _extract_narrative(
         self,
         soup: BeautifulSoup,
         tag_index: dict[Tag, int],
         section_for_index: list[SectionInfo],
     ) -> list[NarrativeSection]:
-        buffers: dict[str, list[str]] = {}
-        titles: dict[str, str] = {}
-        order: list[str] = []
+        buffers: dict[tuple[str, str], list[str]] = {}
+        titles: dict[tuple[str, str], str] = {}
+        order: list[tuple[str, str]] = []
 
-        def ensure_section(item_number: str, section_title: str) -> None:
-            if item_number not in buffers:
-                buffers[item_number] = []
-                titles[item_number] = section_title
-                order.append(item_number)
-            elif section_title and titles[item_number] == PREAMBLE_SECTION_TITLE:
-                titles[item_number] = section_title
+        def activate(section_info: SectionInfo) -> None:
+            key = self._buffer_key(section_info)
+            if key not in buffers:
+                buffers[key] = []
+                titles[key] = section_info.section_title
+                order.append(key)
 
-        ensure_section(PREAMBLE_ITEM_NUMBER, PREAMBLE_SECTION_TITLE)
+        activate(
+            SectionInfo(
+                item_number=PREAMBLE_ITEM_NUMBER,
+                section_title=PREAMBLE_SECTION_TITLE,
+            )
+        )
 
         for tag in soup.find_all(BLOCK_TAGS):
             if tag.find_parent("table"):
@@ -298,26 +456,37 @@ class FilingParser:
             if not normalized:
                 continue
 
-            # Section headings themselves are keys, not body text.
             if self._looks_like_heading(tag, normalized):
                 section_info = self._parse_item_heading(normalized)
                 if section_info:
-                    ensure_section(section_info.item_number, section_info.section_title)
+                    activate(section_info)
+                continue
+
+            if self._looks_like_post_item_boundary(tag, normalized):
+                boundary = self._parse_post_item_boundary(normalized)
+                if boundary:
+                    activate(boundary)
+                continue
+
+            if self._looks_like_generic_heading(tag, normalized):
+                generic = self._parse_generic_heading(normalized)
+                if generic:
+                    activate(generic)
                 continue
 
             idx = tag_index[tag]
             section = section_for_index[idx]
-            ensure_section(section.item_number, section.section_title)
-            buffers[section.item_number].append(normalized)
+            activate(section)
+            buffers[self._buffer_key(section)].append(normalized)
 
         return [
             NarrativeSection(
-                item_number=item_number,
-                section_title=titles[item_number],
-                text="\n\n".join(buffers[item_number]),
+                item_number=key[0],
+                section_title=titles[key],
+                text="\n\n".join(buffers[key]),
             )
-            for item_number in order
-            if buffers[item_number]
+            for key in order
+            if buffers[key]
         ]
 
     # ---- table extraction ----------------------------------------------------
