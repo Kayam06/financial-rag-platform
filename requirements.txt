@@ -25,4 +25,7 @@ ollama                  # local fallback client
 sqlalchemy
 psycopg2-binary         # only needed if you use the Postgres docker-compose service
 
+sentence-transformers
+faiss-cpu
+
 #source venv/Scripts/activate
