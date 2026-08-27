@@ -28,4 +28,8 @@ psycopg2-binary         # only needed if you use the Postgres docker-compose ser
 sentence-transformers
 faiss-cpu
 
+google-genai
+requests
+
+
 #source venv/Scripts/activate

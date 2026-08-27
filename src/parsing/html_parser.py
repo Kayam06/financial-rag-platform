@@ -5,6 +5,7 @@ SEC filings are not semantic HTML — companies use nested divs, layout tables,
 and inconsistent heading markup. Item boundaries are detected with a regex plus
 a few heuristics; expect to tune these as you add more tickers/sectors.
 """
+
 from __future__ import annotations
 
 import re
@@ -59,6 +60,17 @@ PREAMBLE_ITEM_NUMBER = ""
 PREAMBLE_SECTION_TITLE = "Preamble"
 
 _ITEM_BUFFER_TITLE = "__item__"
+
+# Matches a trailing parenthetical qualifier like "(Unaudited)" at the end
+# of a heading. SEC rules require 10-Q financial statement headings to
+# carry "(Unaudited)" (10-Ks are audited and carry no such suffix). That
+# mixed-case suffix was dragging otherwise all-caps headings -- e.g.
+# "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited)" -- just
+# under the uppercase-ratio threshold in `_is_styled_heading`, silently
+# dropping every 10-Q financial-statement section (Balance Sheet,
+# Operations, Cash Flows, Notes) while the identical 10-K headings (no
+# "(Unaudited)" suffix) passed fine. Stripped before computing the ratio.
+TRAILING_PARENTHETICAL_RE = re.compile(r"\s*\([^)]*\)\s*$")
 
 
 @dataclass(frozen=True)
@@ -179,7 +191,9 @@ class FilingParser:
         tag_index = {tag: idx for idx, tag in enumerate(ordered_tags)}
 
         section_starts = self._find_section_starts(soup, tag_index)
-        section_for_index = self._build_section_lookup(section_starts, len(ordered_tags))
+        section_for_index = self._build_section_lookup(
+            section_starts, len(ordered_tags)
+        )
 
         sections = self._extract_narrative(soup, tag_index, section_for_index)
         tables = self._extract_tables(soup, tag_index, section_for_index)
@@ -239,7 +253,17 @@ class FilingParser:
             style += parent.get("style") or ""
         if "font-weight:700" in style or "font-weight:bold" in style.lower():
             return True
-        letters = [c for c in tag.get_text(strip=True) if c.isalpha()]
+        # FIX: strip a trailing parenthetical qualifier like "(Unaudited)"
+        # before computing the uppercase ratio. See TRAILING_PARENTHETICAL_RE
+        # comment above for why this matters specifically for 10-Q financial
+        # statement headings. Only a *trailing* parenthetical is stripped
+        # (regex anchors to end-of-string), so this does not affect the
+        # Issue 2 false-positive guard for inline cross-references like
+        # "Item 7A. of the registrant's Annual Report (see Form 10-K for 2025)"
+        # — those still fail the ratio check on their full mixed-case body text.
+        raw_text = tag.get_text(strip=True)
+        text_for_ratio = TRAILING_PARENTHETICAL_RE.sub("", raw_text).strip()
+        letters = [c for c in text_for_ratio if c.isalpha()]
         if letters and sum(c.isupper() for c in letters) / len(letters) >= 0.85:
             return True
         return False
@@ -258,7 +282,9 @@ class FilingParser:
             return None
         if len(normalized.split()) > MAX_GENERIC_HEADING_WORDS:
             return None
-        if cls._parse_item_heading(normalized) or cls._parse_post_item_boundary(normalized):
+        if cls._parse_item_heading(normalized) or cls._parse_post_item_boundary(
+            normalized
+        ):
             return None
         if normalized.startswith("(") or normalized.lower().startswith("refer to"):
             return None
@@ -331,7 +357,9 @@ class FilingParser:
             return False
         return cls._is_styled_heading(tag)
 
-    def _find_section_starts(self, soup: BeautifulSoup, tag_index: dict[Tag, int]) -> list[tuple[int, SectionInfo]]:
+    def _find_section_starts(
+        self, soup: BeautifulSoup, tag_index: dict[Tag, int]
+    ) -> list[tuple[int, SectionInfo]]:
         """Return (document position, section info) for Item and post-Item headings.
 
         Part headings (PART I / PART II) update current_part but are never
@@ -367,8 +395,9 @@ class FilingParser:
                 is_post_item = True
                 if section_info:
                     current_item_number = PREAMBLE_ITEM_NUMBER
-            elif current_item_number == PREAMBLE_ITEM_NUMBER and self._looks_like_generic_heading(
-                tag, normalized
+            elif (
+                current_item_number == PREAMBLE_ITEM_NUMBER
+                and self._looks_like_generic_heading(tag, normalized)
             ):
                 section_info = self._parse_generic_heading(normalized)
 
@@ -404,7 +433,9 @@ class FilingParser:
         start_ptr = 0
         current = preamble
         for idx in range(num_tags):
-            while start_ptr < len(section_starts) and section_starts[start_ptr][0] <= idx:
+            while (
+                start_ptr < len(section_starts) and section_starts[start_ptr][0] <= idx
+            ):
                 current = section_starts[start_ptr][1]
                 start_ptr += 1
             lookup.append(current)
@@ -490,8 +521,9 @@ class FilingParser:
                     current_item_number = PREAMBLE_ITEM_NUMBER
                 continue
 
-            if current_item_number == PREAMBLE_ITEM_NUMBER and self._looks_like_generic_heading(
-                tag, normalized
+            if (
+                current_item_number == PREAMBLE_ITEM_NUMBER
+                and self._looks_like_generic_heading(tag, normalized)
             ):
                 generic = self._parse_generic_heading(normalized)
                 if generic:
