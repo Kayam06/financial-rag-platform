@@ -8,6 +8,7 @@ Reads the Phase 1 manifest, parses every downloaded .htm filing into narrative
 sections and tables, chunks the narrative text, and writes one JSON object per
 line to data/processed/chunks.jsonl for embedding in Phase 3.
 """
+
 import json
 from pathlib import Path
 
@@ -62,7 +63,11 @@ def main():
                         "part": section.part,
                         "chunk_index": chunk_index,
                         "chunk_type": "text",
-                        "content": content,
+                        "content": (
+                            f"{section.section_title}\n{content}"
+                            if chunk_index == 0
+                            else content
+                        ),
                     }
                 )
 
@@ -75,7 +80,7 @@ def main():
                     "part": table.part,
                     "chunk_index": 0,
                     "chunk_type": "table",
-                    "content": serialize_table(table.dataframe),
+                    "content": f"{table.section_title}\n{serialize_table(table.dataframe)}",
                 }
             )
 

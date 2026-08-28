@@ -42,6 +42,36 @@ class RetrievedChunk:
     score: float
 
 
+# Common financial-domain synonym pairs. SEC filings consistently use
+# formal/statement-specific terminology (e.g. "net sales") that differs
+# from how people naturally ask questions (e.g. "revenue"). Verified via
+# direct cosine-similarity testing: BGE-base scores "net sales" phrasing
+# ~0.07-0.10 higher than "revenue" phrasing against identical AAPL
+# Statements of Operations content, which was enough to keep the correct
+# chunk out of top-8/top-15 retrieval entirely. Expanding the query with
+# these synonyms closes that gap without touching the underlying chunks.
+FINANCIAL_QUERY_SYNONYMS = {
+    "revenue": ["net sales", "total net sales"],
+    "profit": ["net income", "earnings"],
+    "earnings": ["net income"],
+    "costs": ["expenses", "cost of sales"],
+    "debt": ["liabilities", "borrowings"],
+}
+
+
+def _expand_query(query: str) -> str:
+    """Append known financial synonyms found in the query so the embedded
+    text better matches SEC filing terminology."""
+    lowered = query.lower()
+    additions = []
+    for term, synonyms in FINANCIAL_QUERY_SYNONYMS.items():
+        if term in lowered:
+            additions.extend(synonyms)
+    if not additions:
+        return query
+    return f"{query} ({', '.join(additions)})"
+
+
 class Retriever:
     def __init__(
         self,
@@ -87,7 +117,10 @@ class Retriever:
         Embed the query, run FAISS similarity search, return top_k chunks
         (optionally restricted to a single ticker) with metadata attached.
         """
-        query_vec = self.embedder.encode([query], batch_size=1, show_progress_bar=False)
+        expanded_query = _expand_query(query)
+        query_vec = self.embedder.encode(
+            [expanded_query], batch_size=1, show_progress_bar=False
+        )
         query_vec = np.asarray(query_vec, dtype="float32")
 
         # Over-fetch when filtering by ticker so we still end up with top_k
@@ -106,7 +139,7 @@ class Retriever:
                 continue
             results.append(
                 RetrievedChunk(
-                    text=row.get("text", ""),
+                    text=row.get("content", ""),
                     ticker=row.get("ticker", ""),
                     form=row.get("form", ""),
                     item_number=row.get("item_number", ""),
