@@ -1,100 +1,99 @@
-# Financial Document Intelligence Platform (RAG)
+---
+title: Financial Document Intelligence Platform
+emoji: 📊
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
+# Financial Document Intelligence Platform
 
 Ask a plain-English question about a public company's financials and get an
-answer sourced directly from its actual SEC filings — with the specific
-numbers checked against SEC's own structured data, stored in a queryable
-database, and visualized on a dashboard.
+answer sourced directly from that company's actual SEC filings (10-K/10-Q) —
+with the specific numbers cross-checked against SEC's own official
+structured data (XBRL), not just a plausible-sounding LLM guess.
 
 Built entirely on free tools: no paid APIs, no cloud bill, no credit card
 required to run any part of this.
 
+## What makes this different
+
+Most "RAG over documents" projects stop at "it answers questions about a
+PDF." This one goes further: SEC EDGAR publishes every company's official
+reported numbers as structured XBRL data, for free. That means every number
+this pipeline extracts from a messy 10-K can be automatically checked
+against SEC's own ground truth — producing a real, measured accuracy
+percentage instead of just a demo that "seems to work."
+
+**Current measured accuracy: 72.9%** of extracted line items (revenue, net
+income, total assets) exactly matched SEC's official XBRL data, across all
+32 filings from 8 companies (AAPL, MSFT, JPM, WMT, JNJ, XOM, KO, BA).
+
 ## Architecture
 
 ```
-SEC EDGAR filings
-      |
-Parse & extract (pdfplumber + PyMuPDF)
-      |
-Embed & index (BGE-M3, self-hosted + FAISS)
-      |
-   /-----\
-  |       |
-Answer   Extract & validate
-engine   (vs EDGAR ground truth)
-  |       |
-Cited    SQL database
-answers      |
-         Power BI dashboard
+SEC EDGAR filings (10-K / 10-Q, free API)
+        |
+Parse & extract (custom Item-boundary-aware HTML parser —
+                  BeautifulSoup + lxml + pandas.read_html;
+                  section-aware chunking by Item number and Part)
+        |
+Embed & index (BGE-base-en-v1.5 embeddings, self-hosted via
+                sentence-transformers; FAISS IndexFlatIP vector store)
+        |
+   /----------------------------\
+  |                              |
+Answer engine                Extract & validate
+(retrieval + Gemini/Ollama,   (LLM extracts line items to JSON,
+ cites source filing/         checked against SEC's XBRL
+ section/part, refuses        CompanyFacts API — the ground
+ if not in context)            truth)
+  |                              |
+Cited answers                Accuracy score
+(Gradio demo / CLI)          (per-filing + overall)
 ```
 
-## Why SEC EDGAR
 
-SEC EDGAR is free, public, requires no API key, and — critically — it also
-exposes every company's officially reported financial numbers as structured
-XBRL data (the "Company Facts" API). That means we're not just guessing
-whether our extraction pipeline works: we can automatically check every
-number our pipeline pulls out of a messy 10-K against SEC's own machine-
-readable ground truth, and report a real accuracy percentage.
+## Tech stack — every choice here is because it's genuinely $0
 
-## Free-tier tech stack
+| Layer        | Tool                                                                     | Why                                                                                                               |
+| ------------ | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Data source  | SEC EDGAR REST API                                                       | Free, no key. Also gives free ground-truth data (XBRL CompanyFacts)                                               |
+| Parsing      | Custom HTML parser (BeautifulSoup + lxml + pandas)                       | SEC filings aren't semantic HTML; a custom Item-boundary-aware parser handles this better than PDF-oriented tools |
+| Embeddings   | BGE-base-en-v1.5, self-hosted (768-dim, MIT licensed)                    | Zero API cost, zero rate limits, runs on CPU                                                                      |
+| Vector store | FAISS (IndexFlatIP)                                                      | Free, local, no hosted vector DB fees                                                                             |
+| LLM          | Google Gemini API free tier (primary) + Ollama/llama3.1 (local fallback) | No credit card, no expiry; fully local fallback for when quota is hit                                             |
+| Demo UI      | Gradio, deployed via Docker to Hugging Face Spaces                       | Free, no card, no time limit                                                                                      |
 
-| Layer | Tool | Cost |
-|---|---|---|
-| Data source | SEC EDGAR REST API | Free, no key |
-| Parsing | pdfplumber, PyMuPDF | Free, open source |
-| Embeddings | BGE-M3 (self-hosted via `sentence-transformers`) | Free, runs on your machine |
-| Vector store | FAISS | Free, open source |
-| Orchestration | LangChain | Free, open source |
-| LLM | Gemini API (free tier) primary, Ollama (local) fallback | Free, no card |
-| Storage | Postgres (local Docker) or SQLite | Free |
-| Dashboard | Power BI Desktop | Free (Desktop only, not the paid Service) |
-| Deployment | Hugging Face Spaces | Free, no card |
+## What's built so far
 
-## Setup
+- [x] **Phase 1 — Ingestion**: downloads 10-K/10-Q filings for 8 tickers from SEC EDGAR
+- [x] **Phase 2 — Parsing**: custom Item/Part-boundary-aware chunking of narrative text and tables
+- [x] **Phase 3 — Embedding + indexing**: BGE-base embeddings, FAISS vector index
+- [x] **Phase 4 — RAG answer engine**: cited, refusal-capable Q&A over the indexed filings
+- [x] **Phase 5 — Structured extraction + XBRL validation**: LLM-extracted line items checked against SEC's official data — **72.9% accuracy**
+- [ ] **Phase 6 — SQL storage + lightweight dashboard**
+- [x] **Phase 7 — Containerized + deployed** (this Space)
+- [ ] **Phase 8 — Full writeup, evaluation, polish**
+
+## Try it
+
+Use the **Ask a Question** tab to query any of the 8 indexed companies
+(AAPL, MSFT, JPM, WMT, JNJ, XOM, KO, BA), or the **Extraction Accuracy**
+tab to see the measured validation results against SEC's own data.
+
+## Running locally
 
 ```bash
+git clone <repo-url>
+cd financial-rag-platform
 python -m venv venv
-source venv/bin/activate       # Windows: venv\Scripts\activate
+source venv/Scripts/activate  # Windows Git Bash
 pip install -r requirements.txt
-
-cp .env.example .env
-# then edit .env:
-#   - SEC_USER_AGENT: your name + email (SEC just wants a contact, no signup)
-#   - GEMINI_API_KEY: free key from https://aistudio.google.com/app/apikey
+cp .env.example .env  # fill in SEC_USER_AGENT and GEMINI_API_KEY
+python app.py
 ```
 
-Optional local Postgres instead of SQLite:
-```bash
-docker compose -f docker/docker-compose.yml up -d
-```
-
-## Phase 1: download filings
-
-```bash
-python -m src.ingestion.download_filings
-```
-
-Edit the `TICKERS` list in `src/ingestion/download_filings.py` first — it
-ships with 8 companies across different sectors (tech, banking, retail,
-healthcare, energy, consumer staples, industrials) since filing structure
-varies a lot by industry, which is exactly what makes Phase 2 (parsing) a
-real problem worth solving rather than a toy demo.
-
-This writes raw filings to `data/raw/<TICKER>/` and a `data/raw/manifest.csv`
-index of everything downloaded.
-
-Run the tests (fully mocked, no network needed):
-```bash
-pytest tests/
-```
-
-## Roadmap
-
-- [x] Phase 1 — Ingestion: SEC EDGAR downloader + manifest
-- [ ] Phase 2 — Parsing: section-aware chunking of tables + narrative text
-- [ ] Phase 3 — Embed + index: BGE-M3 into FAISS with per-chunk metadata
-- [ ] Phase 4 — RAG answer engine: retrieval + cited, hallucination-guarded answers
-- [ ] Phase 5 — Structured extraction + validation against EDGAR ground truth
-- [ ] Phase 6 — SQL storage + Power BI dashboard
-- [ ] Phase 7 — Containerize + deploy demo to Hugging Face Spaces
-- [ ] Phase 8 — Evaluation write-up (accuracy %, retrieval precision, failure modes)
+Then open `http://localhost:7860`.

@@ -31,5 +31,7 @@ faiss-cpu
 google-genai
 requests
 
+gradio
+
 
 #source venv/Scripts/activate

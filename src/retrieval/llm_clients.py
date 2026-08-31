@@ -45,7 +45,7 @@ class OllamaClient:
             resp = requests.post(
                 f"{self.base_url}/api/generate",
                 json={"model": self.model_name, "prompt": prompt, "stream": False},
-                timeout=120,
+                timeout=300,
             )
             resp.raise_for_status()
         except requests.RequestException as e:

@@ -20,10 +20,8 @@ from pathlib import Path
 
 from src.extraction.line_item_extractor import LineItemExtractor, ExtractionError
 from src.extraction.validator import Validator
-from src.retrieval.retriever import (
-    Retriever,
-    METADATA_PATH,
-)  # ADJUST if this import fails — see note below
+from src.retrieval.retriever import METADATA_PATH
+from src.retrieval.llm_clients import LLMError
 
 OUTPUT_PATH = Path("data/processed/validation_results.json")
 
@@ -71,7 +69,7 @@ def main():
 
     print(f"Found {len(filings)} unique filings to process.")
 
-    extractor = LineItemExtractor(retriever=Retriever())
+    extractor = LineItemExtractor()
     validator = Validator(tolerance=args.tolerance)
 
     all_results = []
@@ -83,8 +81,8 @@ def main():
         )
         try:
             extracted = extractor.extract(ticker, form, report_date)
-        except ExtractionError as e:
-            print(f"SKIPPED (extraction failed): {e}")
+        except (ExtractionError, LLMError) as e:
+            print(f"SKIPPED (failed): {e}")
             continue
 
         result = validator.validate_filing(ticker, form, report_date, extracted)

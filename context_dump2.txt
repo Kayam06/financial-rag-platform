@@ -1,0 +1,51 @@
+[CONSOLIDATED STATEMENTS OF CASH FLOWS | Part II | Item ]
+CONSOLIDATED STATEMENTS OF CASH FLOWS
+2025: 2024 | 2023
+iPhone: $ | 209586 | $ | 201183 | $ | 200583
+Mac: 33708 | 29984 | 29357
+iPad: 28023 | 26694 | 28300
+Wearables, Home and Accessories: 35686 | 37005 | 39845
+Services (1): 109158 | 96169 | 85200
+Total net sales: $ | 416161 | $ | 391035 | $ | 383285
+Portion of total net sales that was included in deferred revenue as of the beginning of the period: $ | 8229 | $ | 7728 | $ | 8169
+
+---
+
+[CONSOLIDATED BALANCE SHEETS | Part II | Item ]
+CONSOLIDATED BALANCE SHEETS
+September 27, 2025: September 28, 2024
+ASSETS:
+Current assets:
+Cash and cash equivalents: $ | 35934 | $ | 29943
+Marketable securities: 18763 | 35228
+Accounts receivable, net: 39777 | 33410
+Vendor non-trade receivables: 33180 | 32833
+Inventories: 5718 | 7286
+Other current assets: 14585 | 14287
+Total current assets: 147957 | 152987
+Non-current assets:
+Marketable securities: 77723 | 91479
+Property, plant and equipment, net: 49834 | 45680
+Other non-current assets: 83727 | 74834
+Total non-current assets: 211284 | 211993
+Total assets: $ | 359241 | $ | 364980
+LIABILITIES AND SHAREHOLDERS’ EQUITY:
+Current liabilities:
+Accounts payable: $ | 69860 | $ | 68960
+Other current liabilities: 66387 | 78304
+Deferred revenue: 9055 | 8249
+Commercial paper: 7979 | 9967
+Term debt: 12350 | 10912
+Total current liabilities: 165631 | 176392
+Non-current liabilities:
+Term debt: 78328 | 85750
+Other non-current liabilities: 41549 | 45888
+Total non-current liabilities: 119877 | 131638
+Total liabilities: 285508 | 308030
+Commitments and contingencies
+Shareholders’ equity:
+Common stock and additional paid-in capital, $0.00001 par value: 50,400,000 shares authorized; 14,773,260 and 15,116,786 shares issued and outstanding, respectively: 93568 | 83276
+Accumulated deficit: (14,264) | (19,154)
+Accumulated other comprehensive loss: (5,571) | (7,172)
+Total shareholders’ equity: 73733 | 56950
+Total liabilities and shareholders’ equity: $ | 359241 | $ | 364980
