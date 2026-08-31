@@ -10,3 +10,8 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+
+
+*_dump.txt
+all_titles.txt
+titles_dump.txt
