@@ -1,0 +1,131 @@
+{
+  "overall_accuracy": 0.6666666666666666,
+  "total_matched": 6,
+  "total_scored": 9,
+  "tolerance": 0.005,
+  "filings": [
+    {
+      "ticker": "AAPL",
+      "form": "10-K",
+      "report_date": "2024-09-28",
+      "llm_source": "gemini",
+      "accuracy": 1.0,
+      "matched_count": 3,
+      "scored_count": 3,
+      "line_items": [
+        {
+          "line_item": "total_revenue",
+          "extracted_value": 391035000000,
+          "extracted_period": "ytd",
+          "ground_truth_value": 391035000000.0,
+          "ground_truth_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "match": true,
+          "pct_diff": 0.0,
+          "note": ""
+        },
+        {
+          "line_item": "net_income",
+          "extracted_value": 93736000000,
+          "extracted_period": "ytd",
+          "ground_truth_value": 93736000000.0,
+          "ground_truth_concept": "NetIncomeLoss",
+          "match": true,
+          "pct_diff": 0.0,
+          "note": ""
+        },
+        {
+          "line_item": "total_assets",
+          "extracted_value": 364980000000,
+          "extracted_period": null,
+          "ground_truth_value": 364980000000.0,
+          "ground_truth_concept": "Assets",
+          "match": true,
+          "pct_diff": 0.0,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "form": "10-K",
+      "report_date": "2025-09-27",
+      "llm_source": "ollama",
+      "accuracy": 1.0,
+      "matched_count": 3,
+      "scored_count": 3,
+      "line_items": [
+        {
+          "line_item": "total_revenue",
+          "extracted_value": 416161000000,
+          "extracted_period": "quarter",
+          "ground_truth_value": 416161000000.0,
+          "ground_truth_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "match": true,
+          "pct_diff": 0.0,
+          "note": ""
+        },
+        {
+          "line_item": "net_income",
+          "extracted_value": 112010000000,
+          "extracted_period": "quarter",
+          "ground_truth_value": 112010000000.0,
+          "ground_truth_concept": "NetIncomeLoss",
+          "match": true,
+          "pct_diff": 0.0,
+          "note": ""
+        },
+        {
+          "line_item": "total_assets",
+          "extracted_value": 359241000000,
+          "extracted_period": null,
+          "ground_truth_value": 359241000000.0,
+          "ground_truth_concept": "Assets",
+          "match": true,
+          "pct_diff": 0.0,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "form": "10-Q",
+      "report_date": "2026-03-28",
+      "llm_source": "ollama",
+      "accuracy": 0.0,
+      "matched_count": 0,
+      "scored_count": 3,
+      "line_items": [
+        {
+          "line_item": "total_revenue",
+          "extracted_value": 111184,
+          "extracted_period": "quarter",
+          "ground_truth_value": 111184000000.0,
+          "ground_truth_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "match": false,
+          "pct_diff": 0.999999,
+          "note": "Value mismatch beyond tolerance."
+        },
+        {
+          "line_item": "net_income",
+          "extracted_value": 29578,
+          "extracted_period": "quarter",
+          "ground_truth_value": 29578000000.0,
+          "ground_truth_concept": "NetIncomeLoss",
+          "match": false,
+          "pct_diff": 0.999999,
+          "note": "Value mismatch beyond tolerance."
+        },
+        {
+          "line_item": "total_assets",
+          "extracted_value": 371082,
+          "extracted_period": null,
+          "ground_truth_value": 371082000000.0,
+          "ground_truth_concept": "Assets",
+          "match": false,
+          "pct_diff": 0.999999,
+          "note": "Value mismatch beyond tolerance."
+        }
+      ]
+    }
+  ]
+}
