@@ -225,7 +225,19 @@ with tab_ask:
             with st.spinner("Retrieving relevant filings and generating an answer..."):
                 engine = load_engine()
                 ticker_filter = None if ticker == "All" else ticker
-                result = engine.ask(question, top_k=top_k, ticker_filter=ticker_filter)
+                try:
+                    result = engine.ask(
+                        question, top_k=top_k, ticker_filter=ticker_filter
+                    )
+                except Exception:
+                    st.error(
+                        "The Gemini API is temporarily unavailable (rate limit or "
+                        "outage) and this deployed demo has no local Ollama fallback "
+                        "to run on — that fallback only works when running the app "
+                        "on a machine with Ollama installed. Please try again in a "
+                        "minute or two."
+                    )
+                    st.stop()
 
             st.markdown(
                 '<div class="section-header">Answer</div>', unsafe_allow_html=True
