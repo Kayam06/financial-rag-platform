@@ -9,6 +9,14 @@ Usage:
 Runs extraction + XBRL validation across every unique (ticker, form,
 report_date) filing found in chunk_metadata.jsonl, and writes per-filing +
 aggregate accuracy results to data/processed/validation_results.json.
+
+Results are saved incrementally, after every single filing -- not just
+once at the end. This matters in practice: Gemini's free-tier daily cap
+(20 requests) means any full 32-filing run will almost always spill into
+the slower Ollama fallback partway through, and a run that gets
+interrupted (Ctrl+C, quota exhaustion with no Ollama available, etc.)
+would otherwise lose all completed progress since the old version only
+wrote the file after the entire loop finished.
 """
 
 from __future__ import annotations
@@ -72,7 +80,38 @@ def main():
     extractor = LineItemExtractor()
     validator = Validator(tolerance=args.tolerance)
 
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     all_results = []
+
+    def save_progress():
+        total_matched = sum(r.matched_count for r in all_results)
+        total_scored = sum(r.scored_count for r in all_results)
+        overall_accuracy = total_matched / total_scored if total_scored else None
+        with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+            json.dump(
+                {
+                    "overall_accuracy": overall_accuracy,
+                    "total_matched": total_matched,
+                    "total_scored": total_scored,
+                    "tolerance": args.tolerance,
+                    "filings": [
+                        {
+                            "ticker": r.ticker,
+                            "form": r.form,
+                            "report_date": r.report_date,
+                            "llm_source": r.llm_source,
+                            "accuracy": r.accuracy,
+                            "matched_count": r.matched_count,
+                            "scored_count": r.scored_count,
+                            "line_items": [asdict(li) for li in r.line_items],
+                        }
+                        for r in all_results
+                    ],
+                },
+                f,
+                indent=2,
+            )
+
     for i, (ticker, form, report_date) in enumerate(filings, 1):
         print(
             f"[{i}/{len(filings)}] {ticker} {form} {report_date} ... ",
@@ -91,6 +130,7 @@ def main():
             f"accuracy {acc_str} ({result.matched_count}/{result.scored_count} scored) [{result.llm_source}]"
         )
         all_results.append(result)
+        save_progress()  # write after every filing, not just at the end
 
     total_matched = sum(r.matched_count for r in all_results)
     total_scored = sum(r.scored_count for r in all_results)
@@ -105,33 +145,6 @@ def main():
     else:
         print("OVERALL ACCURACY: no scorable line items across all filings.")
     print("=" * 60)
-
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(
-            {
-                "overall_accuracy": overall_accuracy,
-                "total_matched": total_matched,
-                "total_scored": total_scored,
-                "tolerance": args.tolerance,
-                "filings": [
-                    {
-                        "ticker": r.ticker,
-                        "form": r.form,
-                        "report_date": r.report_date,
-                        "llm_source": r.llm_source,
-                        "accuracy": r.accuracy,
-                        "matched_count": r.matched_count,
-                        "scored_count": r.scored_count,
-                        "line_items": [asdict(li) for li in r.line_items],
-                    }
-                    for r in all_results
-                ],
-            },
-            f,
-            indent=2,
-        )
-
     print(f"\nFull results written to {OUTPUT_PATH}")
 
 

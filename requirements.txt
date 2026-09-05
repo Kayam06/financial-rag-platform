@@ -31,7 +31,7 @@ faiss-cpu
 google-genai
 requests
 
-gradio
+streamlit
 
 
 #source venv/Scripts/activate
